@@ -117,7 +117,7 @@ const phases = [
   },
   {
     id: 6,
-    title: '🌊 pré final',
+    title: '🌊',
     description: [
       'sabia que você ia lembrar…',
       '',
@@ -135,7 +135,7 @@ const phases = [
   },
   {
     id: 7,
-    title: '💜 final',
+    title: '💜',
     description: [
       '💌',
       '',
