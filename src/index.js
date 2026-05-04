@@ -1,16 +1,23 @@
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { getConfig } = require('./config/env');
+const { getRuntimeConfig } = require('./config/env');
 
 const alanysdayCommand = require('./commands/alanysday');
+const { registerCommands } = require('./register-commands');
 
-const config = getConfig();
+const config = getRuntimeConfig();
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.commands = new Collection();
 client.commands.set(alanysdayCommand.data.name, alanysdayCommand);
 
-client.once(Events.ClientReady, (readyClient) => {
+client.once(Events.ClientReady, async (readyClient) => {
   console.log(`✅ Bot online como ${readyClient.user.tag}`);
+
+  try {
+    await registerCommands(config);
+  } catch (error) {
+    console.error('Erro no registro automático do comando /check:', error.message);
+  }
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
