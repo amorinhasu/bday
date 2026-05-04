@@ -3,44 +3,39 @@ const { EmbedBuilder } = require('discord.js');
 function buildPrivateOnlyEmbed() {
   return new EmbedBuilder()
     .setColor(0x8b5cf6)
-    .setTitle('🔒 Área privada do alanysday')
-    .setDescription('Este presente é privado e só pode ser usado por Alanys e Amora.');
+    .setTitle('🤍 área privada do alanysday')
+    .setDescription('esse presente é íntimo e foi feito só pra alanys e amora.');
 }
 
 function buildHomeEmbed() {
   return new EmbedBuilder()
     .setColor(0xec4899)
-    .setTitle('🎂 alanysday')
+    .setTitle('💜 alanysday')
     .setDescription([
-      'Um presente especial da **Amora** para **Alanys** 💝',
+      'uma carta interativa da **amora** para **alanys**.',
       '',
-      'Clique em **Começar Jornada** para abrir a primeira fase.',
+      'quando você estiver pronta, clica em **começar jornada**.',
+      '',
+      '🌙✨',
     ].join('\n'))
-    .setFooter({ text: 'Comando oficial: /check' });
+    .setFooter({ text: 'comando oficial: /check' });
 }
 
 function buildPhaseEmbed(phase) {
   const base = new EmbedBuilder()
     .setColor(0x06b6d4)
-    .setTitle(`🧩 ${phase.title}`)
-    .setDescription(phase.description || 'Sem descrição nesta fase.');
+    .setTitle(phase.title)
+    .setDescription(phase.description || '');
 
   if (phase.photos && phase.photos.length > 0) {
     base.setImage(phase.photos[0]);
-
-    if (phase.photos.length > 1) {
-      base.addFields({
-        name: '🖼️ Mais imagens desta fase',
-        value: phase.photos.slice(1).map((url, idx) => `${idx + 2}. ${url}`).join('\n').slice(0, 1024),
-      });
-    }
   }
 
   if (phase.links) {
     const blocks = [
-      ['🎵 Playlists', phase.links.playlist],
-      ['🎬 Vídeos', phase.links.videos],
-      ['🍿 Filmes', phase.links.movies],
+      ['✨ playlists', phase.links.playlist],
+      ['🌙 vídeos', phase.links.videos],
+      ['💜 filmes', phase.links.movies],
     ];
 
     for (const [name, items] of blocks) {
