@@ -19,29 +19,29 @@ const IDS = {
 function buildPasswordModal() {
   const input = new TextInputBuilder()
     .setCustomId(IDS.PASSWORD_INPUT)
-    .setLabel('Qual é a senha?')
-    .setPlaceholder('Dica: lembra de um lugar especial...')
+    .setLabel('qual é a senha?')
+    .setPlaceholder('dica: lembra de um lugar especial...')
     .setStyle(TextInputStyle.Short)
     .setRequired(true)
     .setMaxLength(30);
 
   return new ModalBuilder()
     .setCustomId(IDS.PASSWORD_MODAL)
-    .setTitle('Confirmação especial')
+    .setTitle('confirmação especial')
     .addComponents(new ActionRowBuilder().addComponents(input));
 }
 
 function buildStartRow() {
   return new ActionRowBuilder().addComponents(
-    new ButtonBuilder().setCustomId(IDS.START).setLabel('Começar Jornada').setStyle(ButtonStyle.Primary),
+    new ButtonBuilder().setCustomId(IDS.START).setLabel('começar jornada').setStyle(ButtonStyle.Primary),
   );
 }
 
-function buildNextPhaseRow(disabled = false) {
+function buildNextPhaseRow(disabled = false, label = 'próxima fase') {
   return new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId(IDS.NEXT)
-      .setLabel('Próxima fase')
+      .setLabel(label)
       .setStyle(ButtonStyle.Success)
       .setDisabled(disabled),
   );
@@ -51,7 +51,7 @@ function buildQuizRow(quiz) {
   return new ActionRowBuilder().addComponents(
     new StringSelectMenuBuilder()
       .setCustomId(IDS.QUIZ)
-      .setPlaceholder('Escolha sua resposta')
+      .setPlaceholder('escolha sua resposta')
       .addOptions(quiz.options.map((option) => ({ label: option.label, value: option.id }))),
   );
 }

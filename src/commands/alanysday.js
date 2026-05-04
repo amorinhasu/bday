@@ -17,14 +17,6 @@ function getProgress(userId) {
   return userProgress.get(userId);
 }
 
-async function showHomePanel(interaction) {
-  await interaction.reply({
-    embeds: [buildHomeEmbed()],
-    components: [buildStartRow()],
-    ephemeral: true,
-  });
-}
-
 async function execute(interaction, config) {
   if (!canAccess(interaction.user.id, config.allowedUsers)) {
     await interaction.reply({ embeds: [buildPrivateOnlyEmbed()], ephemeral: true });
@@ -50,15 +42,16 @@ async function handlePasswordModal(interaction, config) {
 
   state.passwordValidated = true;
   await interaction.reply({
-    content: 'sabia que você ia lembrar. 🌊 Esse lugar diz muito sobre você — vamos continuar 💖',
+    content: 'sabia que você ia lembrar. 🌊 esse lugar diz muito sobre você — vamos continuar 💖',
     ephemeral: true,
   });
 
-  await interaction.followUp({
-    embeds: [buildHomeEmbed()],
-    components: [buildStartRow()],
-    ephemeral: true,
-  });
+  if (interaction.channel) {
+    await interaction.channel.send({
+      embeds: [buildHomeEmbed()],
+      components: [buildStartRow()],
+    });
+  }
 }
 
 async function handleComponent(interaction, config) {
@@ -70,21 +63,21 @@ async function handleComponent(interaction, config) {
   const state = getProgress(interaction.user.id);
 
   if (!state.passwordValidated) {
-    await interaction.reply({ content: 'Antes de começar, confirme a senha pelo /check 💫', ephemeral: true });
+    await interaction.reply({ content: 'antes de começar, confirme a senha pelo /check 💫', ephemeral: true });
     return;
   }
 
   if (interaction.customId === IDS.START) {
     state.phase = 1;
     const phase = phases.find((p) => p.id === 1);
-    await interaction.update({ embeds: [buildPhaseEmbed(phase)], components: [buildNextPhaseRow(false)] });
+    await interaction.reply({ embeds: [buildPhaseEmbed(phase)], components: [buildNextPhaseRow(false)] });
     return;
   }
 
   if (interaction.customId === IDS.NEXT) {
     const current = phases.find((p) => p.id === state.phase);
     if (!current) {
-      await interaction.reply({ content: 'Nenhuma fase ativa. Use /check novamente.', ephemeral: true });
+      await interaction.reply({ content: 'nenhuma fase ativa. use /check novamente.', ephemeral: true });
       return;
     }
 
@@ -92,23 +85,26 @@ async function handleComponent(interaction, config) {
     const next = phases.find((p) => p.id === nextPhaseId);
 
     if (!next) {
-      await interaction.reply({ content: 'Você já concluiu todas as fases 🎉', ephemeral: true });
+      await interaction.reply({ content: 'você já concluiu todas as fases 🎉', ephemeral: true });
       return;
     }
 
     state.phase = nextPhaseId;
 
     if (next.quiz) {
-      await interaction.update({
+      await interaction.reply({
         embeds: [buildPhaseEmbed(next)],
         components: [buildQuizRow(next.quiz)],
       });
       return;
     }
 
-    await interaction.update({
+    const isLast = next.id >= phases.length;
+    const buttonLabel = next.id === phases.length - 1 ? 'celebrar o dia dela' : 'próxima fase';
+
+    await interaction.reply({
       embeds: [buildPhaseEmbed(next)],
-      components: [buildNextPhaseRow(next.id >= phases.length)],
+      components: [buildNextPhaseRow(isLast, buttonLabel)],
     });
     return;
   }
@@ -116,7 +112,7 @@ async function handleComponent(interaction, config) {
   if (interaction.customId === IDS.QUIZ) {
     const quizPhase = phases.find((p) => p.id === state.phase);
     if (!quizPhase || !quizPhase.quiz) {
-      await interaction.reply({ content: 'Quiz indisponível nesta fase.', ephemeral: true });
+      await interaction.reply({ content: 'quiz indisponível nesta fase.', ephemeral: true });
       return;
     }
 
@@ -124,13 +120,13 @@ async function handleComponent(interaction, config) {
     const correct = answer === quizPhase.quiz.correctOptionId;
 
     if (!correct) {
-      await interaction.reply({ content: 'Resposta incorreta. Tente novamente 💭', ephemeral: true });
+      await interaction.reply({ content: 'resposta incorreta. tente novamente 💭', ephemeral: true });
       return;
     }
 
     state.quizPassed = true;
-    await interaction.update({
-      content: '✅ Resposta certa! Fase desbloqueada.',
+    await interaction.reply({
+      content: '✨ resposta certa! fase desbloqueada.',
       embeds: [buildPhaseEmbed(quizPhase)],
       components: [buildNextPhaseRow(false)],
     });
@@ -138,7 +134,7 @@ async function handleComponent(interaction, config) {
 }
 
 module.exports = {
-  data: new SlashCommandBuilder().setName('check').setDescription('Abre a confirmação privada do alanysday.'),
+  data: new SlashCommandBuilder().setName('check').setDescription('abre a confirmação privada do alanysday.'),
   execute,
   handleComponent,
   handlePasswordModal,
