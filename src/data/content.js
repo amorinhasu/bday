@@ -1,0 +1,131 @@
+const phases = [
+  {
+    id: 1,
+    title: 'Fase 1 — Primeiro impacto',
+    description: [
+      'eu não entendi você de cara',
+      'e acho que nem era pra entender',
+      '',
+      'algumas pessoas não chegam pra serem explicadas',
+      'chegam pra serem sentidas',
+    ].join('\n'),
+    photos: [
+      'https://i.pinimg.com/736x/bf/31/ea/bf31ea2fc54d7fda77e081a5510b0a21.jpg',
+      'https://i.pinimg.com/736x/95/49/26/9549263c142ccac8642d6c358f9ae5a8.jpg',
+    ],
+    links: { playlist: [], videos: [], movies: [] },
+  },
+  {
+    id: 2,
+    title: 'Fase 2 — Quiz no meio do caminho',
+    description: [
+      'a gente não foi imediato',
+      'não foi fácil',
+      'não foi óbvio',
+      '',
+      'mas foi ficando',
+      'foi voltando',
+      'foi criando espaço',
+    ].join('\n'),
+    photos: [
+      'https://i.pinimg.com/736x/04/67/72/0467724aa672ed4e2854c685b26af3ae.jpg',
+      'https://i.pinimg.com/1200x/9a/b0/cf/9ab0cf771ecfd5f3f822fde8040d268b.jpg',
+    ],
+    quiz: {
+      question: 'Qual palavra resume melhor esse presente?',
+      options: [
+        { id: 'A', label: 'Carinho' },
+        { id: 'B', label: 'Pressa' },
+        { id: 'C', label: 'Aleatório' },
+      ],
+      correctOptionId: 'A',
+    },
+  },
+  {
+    id: 3,
+    title: 'Fase 3 — Presença',
+    description: [
+      'quando eu percebi',
+      'você já tava ali',
+      '',
+      'nas minhas noites',
+      'nos meus surtos',
+      'nas minhas pausas',
+    ].join('\n'),
+    photos: [
+      'https://i.pinimg.com/1200x/32/8b/45/328b4551e279c3edeb65d98ad432281b.jpg',
+      'https://i.pinimg.com/736x/b4/ea/84/b4ea8406d0cea615548e0997b3be2feb.jpg',
+    ],
+    links: { playlist: [], videos: [], movies: [] },
+  },
+  {
+    id: 4,
+    title: 'Fase 4 — Rotina boa',
+    description: [
+      'você virou rotina',
+      'mas não aquela rotina pesada',
+      '',
+      'virou aquela que a gente escolhe',
+      'mesmo sem perceber',
+    ].join('\n'),
+    photos: [
+      'https://i.pinimg.com/1200x/1b/9e/04/1b9e04e97c592261b010a3ce91155741.jpg',
+      'https://i.pinimg.com/736x/06/0b/1c/060b1c7a70a902a2d80f88eadb2c7307.jpg',
+    ],
+    links: { playlist: [], videos: [], movies: [] },
+  },
+  {
+    id: 5,
+    title: 'Fase 5 — Fica',
+    description: [
+      'você não é fácil de explicar',
+      '',
+      'mas é fácil de sentir',
+      '',
+      'e hoje eu sei',
+      'que algumas pessoas não passam',
+      '',
+      'elas ficam',
+    ].join('\n'),
+    photos: [
+      'https://i.pinimg.com/736x/28/90/da/2890da0f33efa842765aa34b43c29fe9.jpg',
+      'https://i.pinimg.com/736x/db/fe/fe/dbfefe7a237661ab9bb0fc14afa1d1c3.jpg',
+    ],
+    links: { playlist: [], videos: [], movies: [] },
+  },
+  {
+    id: 6,
+    title: 'Antes do final — A nossa senha',
+    description: [
+      'sabia que você ia lembrar…',
+      '',
+      'porque tem coisas que são só nossas',
+      '',
+      'e a praia…',
+      'sempre foi uma delas',
+    ].join('\n'),
+    photos: [],
+    links: { playlist: [], videos: [], movies: [] },
+  },
+  {
+    id: 7,
+    title: 'Final — Feliz alanys day',
+    description: [
+      'alanys,',
+      '',
+      'eu já te escrevi antes',
+      'mas esse ano eu quis te fazer sentir',
+      '',
+      'você não passou',
+      'você ficou',
+      '',
+      'feliz alanys day 💜',
+      '',
+      '— amora',
+    ].join('\n'),
+    photos: [],
+    links: { playlist: [], videos: [], movies: [] },
+  },
+];
+
+module.exports = { phases };
